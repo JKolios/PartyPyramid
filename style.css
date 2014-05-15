@@ -1,0 +1,28 @@
+#graphicsContainer {
+  width: 1280px;
+  height: 720px;
+  /*border: 1px solid black;*/
+  display:block;
+  margin:auto;
+  margin-top:1em;
+  margin-bottom:4em;
+  position: relative;
+}
+
+.buttonContainer {
+  display:block;
+  position: relative;
+  width: 10%;
+  margin-left:auto;
+  margin-right:auto;
+
+}
+
+#partyContainer {
+  display:block;
+  position: relative;
+  width: 3%;
+  margin-left:auto;
+  margin-right:auto;
+
+}
