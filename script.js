@@ -7,6 +7,10 @@ var Shape = Isomer.Shape;
 var Point = Isomer.Point;
 var Color = Isomer.Color;
 
+//Predefined floor colors for non-party mode
+var paleOrange = new Color(255,146,0);
+var paleBlue = new Color(11,97,164);
+
 var sidelen = 7;
 var partyMode = false;
 
@@ -35,7 +39,7 @@ document.getElementById("partyButton").onclick = function () {
     partyMode = true;
     document.getElementById("partyButton").value = "Stop Partying!";
     document.getElementById("partyContainer").style.width = "6%";
-    setInterval(function() {drawPyramid(sidelen,sidelen,0,sidelen,partyMode);},500);
+    setInterval(function() {drawPyramid(sidelen,sidelen,0,sidelen,partyMode);},400);
   }
   else{
     partyMode = false;
@@ -58,17 +62,13 @@ function drawPyramid(xBase,yBase,zBase,sideLen,partyMode){
     if (partyMode === true){
       floorColor =  randColor();
     }else if (i%2 === 0){
-      floorColor = new Color(255,146,0);
+      floorColor = paleOrange;
     }else{
-      floorColor = new Color(11,97,164);
+      floorColor = paleBlue;
     }
 
-    for (var j = 0; j < floorSideLen; j++){
-      for (var k = 0; k < floorSideLen; k++){
+    iso.add(Shape.Prism(new Point(floorXBase - j, floorYBase - k, i), sideLen, sideLen),floorColor);
 
-        iso.add(Shape.Prism(new Point(floorXBase - j, floorYBase - k, i)),floorColor);
-      }
-    }
 
     floorSideLen-=2;
     floorXBase--;
@@ -122,8 +122,7 @@ function drawDiscoFloor(xBase,yBase,xLen,yLen,zBase){
 /*var red = new Color(255,0,0);
 var green = new Color(0,255,0);
 var blue = new Color(0,0,255);
-var paleOrange = new Color(255,146,0);
-var paleBlue = new Color(11,97,164);
+
 */
 
 
