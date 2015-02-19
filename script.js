@@ -67,7 +67,7 @@ function drawPyramid(xBase,yBase,zBase,sideLen,partyMode){
       floorColor = paleBlue;
     }
 
-    iso.add(Shape.Prism(new Point(floorXBase - j, floorYBase - k, i), sideLen, sideLen),floorColor);
+    iso.add(Shape.Prism(new Point(floorXBase - i, floorYBase - i, i), sideLen, sideLen),floorColor);
 
 
     floorSideLen-=2;
