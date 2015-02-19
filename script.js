@@ -49,30 +49,24 @@ document.getElementById("partyButton").onclick = function () {
   }
 };
 
-function drawPyramid(xBase,yBase,zBase,sideLen,partyMode){
+function drawPyramid(originPoint,sideLen,partyMode){
 
-  var floorXBase =  xBase;
-  var floorYBase =  yBase;
-  var floorSideLen = sideLen;
+  var basePoint = originPoint;
+  
+  for (i = originPoint.z; i < (originPoint.z + sideLen - 1); i++){
 
-  var floorColor;
+    if (partyMode === true) var floorColor =  randColor();
+    else if (i % 2 === 0) var floorColor = paleOrange;
+    else var floorColor = paleBlue;
 
-  for (i = zBase; i < (zBase + sideLen - 1); i++){
+    iso.add(Shape.Prism(basePoint, floorSideLen, floorSideLen), floorColor);
 
-    if (partyMode === true){
-      floorColor =  randColor();
-    }else if (i%2 === 0){
-      floorColor = paleOrange;
-    }else{
-      floorColor = paleBlue;
-    }
-
-    iso.add(Shape.Prism(new Point(floorXBase, floorYBase, i), floorSideLen, floorSideLen),floorColor);
-
-
-    floorSideLen-=2;
-    floorXBase--;
-    floorYBase--;
+    basePoint.x = basePoint.x + 1;
+    basePoint.y = basePoint.y + 1;
+    basePoint.z = basePoint.z + 1;
+    
+    floorSideLen -= 1;
+  
   }
 }
 
