@@ -1,5 +1,5 @@
-var iso = new Isomer(document.getElementById("graphicsContainer"));
-var canvas = document.getElementById("graphicsContainer");
+var iso = new Isomer(document.getElementById("graphicsCanvas"));
+var canvas = document.getElementById("graphicsCanvas");
 var context = canvas.getContext("2d");
 
 //Shorthand references to Isomer classes
@@ -20,34 +20,49 @@ var partyMode = false;
 
 drawPyramid(Point.ORIGIN,sideLength,partyMode);
 
-document.getElementById("moreButton").onclick = function () {
-  if (sideLength < maxSideLength){
-    sideLength++;
-    context.clearRect ( 0 , 0 , canvas.width , canvas.height );
-    drawPyramid(Point.ORIGIN,sideLength,partyMode);
+function registerMoreHandler() {
+    var _self = document.getElementById("moreButton");
+    _self.onclick = function () {
+        sideLength++;
+        context.clearRect ( 0 , 0 , canvas.width , canvas.height );
+        drawPyramid(Point.ORIGIN,sideLength,partyMode);
+        if (sideLength === maxSideLength) {
+            _self.disabled = true
+        }else if (sideLength > minSideLength) {
+                document.getElementById("lessButton").disabled = false;
+        }
+    }
+};
+
+registerMoreHandler();
+
+function registerLessHandler() {
+    var _self = document.getElementById("lessButton");
+    _self.onclick = function () {
+      if (sideLength > minSideLength){
+        sideLength--;
+        context.clearRect ( 0 , 0 , canvas.width , canvas.height );
+        drawPyramid(Point.ORIGIN,sideLength,partyMode);
+        if (sideLength === minSideLength) {
+            _self.disabled = true
+        }else if (sideLength < maxSideLength) {
+                document.getElementById("moreButton").disabled = false;
+        }
+      }
   }
 };
 
-document.getElementById("lessButton").onclick = function () {
-  if (sideLength > minSideLength){
-    sideLength--;
-
-    context.clearRect ( 0 , 0 , canvas.width , canvas.height );
-    drawPyramid(Point.ORIGIN,sideLength,partyMode);
-  }
-};
+registerLessHandler();
 
 document.getElementById("partyButton").onclick = function () {
   if (partyMode === false){
     partyMode = true;
     document.getElementById("partyButton").value = "Stop Partying!";
-    document.getElementById("partyContainer").style.width = "6%";
     setInterval(function() {drawPyramid(Point.ORIGIN,sideLength,partyMode);},400);
   }
   else{
     partyMode = false;
     document.getElementById("partyButton").value = "Party!";
-    document.getElementById("partyContainer").style.width = "3%";
     drawPyramid(Point.ORIGIN,sideLength,partyMode);
   }
 };

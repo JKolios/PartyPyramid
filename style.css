@@ -6,24 +6,35 @@
     position: relative;
 }
 
+.pageContainer
+{
+     text-align: center;
+}
+
 .buttonContainer {
-  display:block;
-  position: relative;
-  width: 10%;
-  margin-left:auto;
-  margin-right:auto;
+  display: inline-block;
 
 }
 
-#partyContainer {
-  display:block;
-  position: relative;
-  width: 3%;
-  margin-left:auto;
-  margin-right:auto;
+.linkContainer {
+  display: inline-block;
+
+}
+
+.graphicsContainer {
+
+  display: inline-block;
+
+}
+
+#graphicsCanvas {
+
+width: 1280px;
+height: 720px;
 
 }
 
 body {
     background-color: lightblue;
+    font-family: 'Lato', sans-serif;
 }

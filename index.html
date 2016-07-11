@@ -1,18 +1,24 @@
 <head>
+	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<title>The Party Pyramid</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<div class="pageContainer">
 	<div class="buttonContainer">
 		<input id="moreButton" type="button" value="More Floors">
 		<input id="lessButton" type="button" value="Less Floors">
-	</div>
-
-	<div id="partyContainer">
 		<input id="partyButton" type="button" value="Party!">
 	</div>
 
-	<canvas id="graphicsContainer" width="2560" height="1480">Get a new browser.</canvas>
+	<div class="graphicsContainer">
+		<canvas id="graphicsCanvas" width="2560" height="1480">You should probably get a modern browser.</canvas>
+	</div>
+	<div class="linkContainer">
+		<p> Created using <a href="https://github.com/jdan/isomer">isomer.js</a></p>
+		<p> Impressed? (Really?) Check out my <a href="http://jkolios.github.io/CV/English/cv.html">CV</p>
+	</div>
     <script type="text/javascript" src="https://cdn.rawgit.com/JKolios/JKolios.github.io/master/isomer.min.js"></script>
     <script type="text/javascript" src="./script.js"></script>
+</div>
 </body>
