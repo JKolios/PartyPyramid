@@ -1,3 +1,89 @@
+var ColorGen = function(saturation, value) {
+  this.saturation = saturation;
+  this.value = value;
+  this.nextHue = Math.random();
+
+  ColorGen.prototype.PHI = 0.618033988749895;
+
+  ColorGen.prototype.nextColor = function() {
+    this.nextHue += (1 / this.PHI);
+    this.nextHue %= 1;
+    return this.hsvToRgb(this.nextHue, this.saturation, this.value);
+  };
+
+  ColorGen.prototype.nextRGBColor = function() {
+    var color = this.nextColor();
+    console.log(color);
+    return this.colorToRGBString(color);
+  };
+
+  ColorGen.prototype.hsvToRgb = function(hue, saturation, value) {
+    var h = Math.trunc(hue * 6);
+    var f = hue * 6 - h;
+    var p = value * (1 - saturation);
+    var q = value * (1 - f * saturation);
+    var t = (value * (1 - (1 - f) * saturation));
+    switch (h) {
+      case 0:
+        color = {
+          r: Math.trunc(value * 256),
+          g: Math.trunc(t * 256),
+          b: Math.trunc(p * 256)
+        };
+
+        break;
+      case 1:
+        color = {
+          r: Math.trunc(q * 256),
+          g: Math.trunc(value * 256),
+          b: Math.trunc(p * 256)
+        };
+        break;
+      case 2:
+        color = {
+          r: Math.trunc(p * 256),
+          g: Math.trunc(value * 256),
+          b: Math.trunc(t * 256)
+        };
+        break;
+      case 3:
+        color = {
+          r: Math.trunc(p * 256),
+          g: Math.trunc(q * 256),
+          b: Math.trunc(value * 256)
+        };
+        break;
+      case 4:
+        color = {
+          r: Math.trunc(t * 256),
+          g: Math.trunc(p * 256),
+          b: Math.trunc(value * 256)
+        };
+        break;
+      case 5:
+        color = {
+          r: Math.trunc(value * 256),
+          g: Math.trunc(p * 256),
+          b: Math.trunc(q * 256)
+        };
+        break;
+    }
+    return color;
+  };
+
+  ColorGen.prototype.colorToRGBString = function(color) {
+    var nextColorRGBString = "#" + this.zeroPad(color.r.toString(16), 2) + this.zeroPad(color.g.toString(16), 2) + this.zeroPad(color.b.toString(16), 2);
+
+    return nextColorRGBString
+  };
+
+  ColorGen.prototype.zeroPad = function(string, targetLength) {
+    return string.length < targetLength ? "0".repeat(targetLength - string.length) + string : string;
+  };
+};
+
+var ColorGenerator = new ColorGen(0.99, 0.70);
+
 var iso = new Isomer(document.getElementById("graphicsCanvas"));
 var canvas = document.getElementById("graphicsCanvas");
 var context = canvas.getContext("2d");
@@ -15,7 +101,7 @@ var paleBlue = new Color(11,97,164);
 var minSideLength = 3;
 var maxSideLength = 17;
 
-var sideLength = 7;
+var sideLength = 9;
 var partyMode = false;
 
 drawPyramid(Point.ORIGIN,sideLength,partyMode);
@@ -58,11 +144,13 @@ document.getElementById("partyButton").onclick = function () {
   if (partyMode === false){
     partyMode = true;
     document.getElementById("partyButton").value = "Stop Partying!";
+    document.getElementById("datBass").play();
     setInterval(function() {drawPyramid(Point.ORIGIN,sideLength,partyMode);},400);
   }
   else{
     partyMode = false;
     document.getElementById("partyButton").value = "Party!";
+    document.getElementById("datBass").pause();
     drawPyramid(Point.ORIGIN,sideLength,partyMode);
   }
 };
@@ -126,8 +214,6 @@ function drawRectangle(originPoint,xLen,yLen, Zlen)
 }
 
 function randColor(){
-  var r = Math.floor((Math.random() * 255));
-  var g = Math.floor((Math.random() * 255));
-  var b = Math.floor((Math.random() * 255));
-  return new Color(r, g, b);
+  color = ColorGenerator.nextColor();
+  return new Color(color.r, color.g, color.b);
 }
