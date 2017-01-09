@@ -1,0 +1,40 @@
+#graphicsContainer {
+    width: 1280px;
+    height: 720px;
+    display:block;
+    margin: 1em auto 4em;
+    position: relative;
+}
+
+.pageContainer
+{
+     text-align: center;
+}
+
+.buttonContainer {
+  display: inline-block;
+
+}
+
+.linkContainer {
+  display: inline-block;
+
+}
+
+.graphicsContainer {
+
+  display: inline-block;
+
+}
+
+#graphicsCanvas {
+
+width: 1280px;
+height: 720px;
+
+}
+
+body {
+    background-color: lightblue;
+    font-family: 'Lato', sans-serif;
+}
